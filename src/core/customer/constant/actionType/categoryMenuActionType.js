@@ -1,0 +1,8 @@
+/**
+ * actionType
+ */
+
+export const SET_CATEGORIES = "CUSTOMER_SET_CATEGORIES";
+
+export const FETCH_FIND_ALL = "CUSTOMER_FETCH_FIND_ALL_CATEGORIES";
+
