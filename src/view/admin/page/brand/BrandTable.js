@@ -1,33 +1,32 @@
-import {Component, Fragment} from "react";
-import * as brandApi from "../../../../service/admin/api/brandApi";
+import {Fragment, useEffect, useState} from "react";
 import BrandRow from "./BrandRow";
 import ReactPaginate from "react-paginate";
-import CategoryRow from "../category/CategoryRow";
+import {useDispatch, useSelector} from "react-redux";
+import {getBrands} from "../../../../core/admin/reducer/brandSlice";
 
-class BrandTable extends Component{
+const BrandTable = (props) => {
+    const dispatch = useDispatch();
+    const brandsSelector = useSelector(state => state.brands);
+    const [brands, setBrands] = useState({
+        currentBrands: [],
+        itemsPerPage: 5,
+        pageCount: 0,
+        selectedPage: 0
+    });
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentBrands: [],
-            itemsPerPage: 5,
-            pageCount: 0,
-            selectedPage: 0
-        }
-    }
+    useEffect(() => {
+        setBrands({
+            ...brands,
+            currentBrands: brandsSelector.value,
+            pageCount: Math.ceil(brandsSelector.brands.length / brands.itemsPerPage)
+        });
+        initPaginate(brands);
+        dispatch(() => getBrands(brands));
+    }, [brands, brandsSelector.brands.length, brandsSelector.value, dispatch]);
 
-    componentDidMount() {
-        let {brandAction} = this.props;
-        brandAction.fetchFindAll();
-    }
 
-    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any) {
-        this.initPaginate(nextProps.brands);
-    }
-
-    renderPagination = () => {
-        let {pageCount} = this.state;
-        return(
+    const renderPagination = () => {
+        return (
             <div className="pagination-area mt-30 mb-50">
                 <nav aria-label="Page navigation example">
                     <ReactPaginate
@@ -49,90 +48,83 @@ class BrandTable extends Component{
                         pageClassName="page-item"
                         activeClassName="active"
 
-                        onPageChange={this.onChangePage}
+                        onPageChange={onChangePage}
                         pageRangeDisplayed={2}
                         marginPagesDisplayed={1}
                         // initialPage={selectedPage}
-                        pageCount={pageCount}
+                        pageCount={brands.pageCount}
                         renderOnZeroPageCount={null}
                     />
                 </nav>
             </div>
         )
     }
-    initPaginate = (brands) => {
-        let {itemsPerPage, selectedPage} =this.state;
-        let itemsOffset = selectedPage === 0 ? selectedPage : selectedPage * itemsPerPage;
+    const initPaginate = (brands) => {
+        let itemsOffset = brands.selectedPage === 0 ? brands.selectedPage : brands.selectedPage * brands.itemsPerPage;
 
         // vị trí kết thúc
-        let endOffset = itemsOffset + itemsPerPage;
+        let endOffset = itemsOffset + brands.itemsPerPage;
 
-        this.setState({
+        setBrands({
+            ...brands,
             currentBrands: brands.slice(itemsOffset, endOffset),
-            pageCount: Math.ceil(brands.length / itemsPerPage)
+            pageCount: Math.ceil(brands.length / brands.itemsPerPage)
         })
     }
 
-    onChangePage = (event) => {
+    const onChangePage = (event) => {
 
-        let {brands} = this.props;
-        let {itemsPerPage} = this.state;
+        let newOffset = (event.selected * brands.itemsPerPage) % brands.length;
 
-        let newOffset = (event.selected * itemsPerPage) % brands.length;
+        let endOffset = newOffset + brands.itemsPerPage;
 
-        let endOffset = newOffset + itemsPerPage;
-
-        this.setState({
+        setBrands({
+            ...brands,
             currentBrands: brands.slice(newOffset, endOffset),
             selectedPage: event.selected
         });
     }
 
-    renderBrands = () =>{
-        let {brandAction} = this.props;
-        let {currentBrands} = this.state;
+    const renderBrands = () => {
         return (
-            currentBrands.map((brand, index) => {
-                return <BrandRow key={index} brand={brand} brandAction={brandAction}/>
+            brands.currentBrands.map((brand, index) => {
+                return <BrandRow key={index} brand={brand}/>
             })
         );
     }
 
-
-    render() {
-        return(
-            <Fragment>
-                <div className="content-header">
-                    <div>
-                        <h2 className="content-title card-title">Thương hiệu</h2>
-                    </div>
-
+    return (
+        <Fragment>
+            <div className="content-header">
+                <div>
+                    <h2 className="content-title card-title">Thương hiệu</h2>
                 </div>
-                <div className="card">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="table-responsive">
-                                <table className="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên</th>
-                                        <th>Mô tả</th>
-                                        <th className="text-end">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {this.renderBrands()}
-                                    </tbody>
-                                </table>
-                            </div>
+
+            </div>
+            <div className="card">
+                <div className="card-body">
+                    <div className="row">
+                        <div className="table-responsive">
+                            <table className="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th className="text-end">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {renderBrands()}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                {this.renderPagination()}
-            </Fragment>
-        );
-    }
+            </div>
+            {renderPagination()}
+        </Fragment>
+    );
 }
 
 export default BrandTable;

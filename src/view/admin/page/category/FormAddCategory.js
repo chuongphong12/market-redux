@@ -1,11 +1,11 @@
 import {Component} from "react";
-import * as formEntityAction from "../../../../service/admin/action/formEntityAction";
+import * as formEntityAction from "../../../../core/admin/action/formEntityAction";
 import bindActionCreators from "react-redux/lib/utils/bindActionCreators";
 import {connect} from "react-redux";
 import {Field, reduxForm, SubmissionError} from "redux-form";
 import {compose} from "redux";
-import * as categoryApi from "../../../../service/admin/api/categoryApi";
-import {notifyError, notifySuccess} from "../../../../service/util/notify";
+import {notifyError, notifySuccess} from "../../../../utils/notify";
+import categoryApi from "../../../../core/admin/api/categoryApi";
 
 
 class FormAddCategory extends Component {

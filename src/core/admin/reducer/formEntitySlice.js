@@ -15,6 +15,9 @@ const formEntitySlice = createSlice({
     }
 })
 
-export const {setFormEntity} = formEntitySlice.actions;
+export const formEntityActions = formEntitySlice.actions;
 
-export default formEntitySlice.reducer;
+export const formEntitySelector = (state) => state.formEntity;
+
+const formEntityReducer = formEntitySlice.reducer;
+export default formEntityReducer;

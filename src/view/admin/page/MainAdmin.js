@@ -5,38 +5,36 @@ import {Route, Routes} from "react-router-dom";
 import {routes} from "./routes";
 import {ToastContainer} from "react-toastify";
 import {loadCss, loadScript} from "../../../index";
-import {Component} from "react";
 
-class MainAdmin extends Component {
-
-    renderPages = () => {
+function MainAdmin() {
+    this.renderPages = function () {
         return routes.map((route, index) => {
             return (
                 <Route key={index} path={route.url} exact={route.isExact} component={route.component}/>
             );
         })
-    }
+    };
 
-    render() {
-        loadCss(true);
-        loadScript(true);
-        return (
-            <>
-                <ToastContainer/>
-                <div className="screen-overlay"/>
-                <MenuSidebar/>
-                <main className="main-wrap">
-                    <Header/>
-                    <section className="content-main">
-                        <Routes>
-                            {this.renderPages()}
-                        </Routes>
-                    </section>
-                    <Footer/>
-                </main>
-            </>
-        );
-    }
+    loadCss(true);
+    loadScript(true);
+
+    return (
+        <>
+            <ToastContainer/>
+            <div className="screen-overlay"/>
+            <MenuSidebar/>
+            <main className="main-wrap">
+                <Header/>
+                <section className="content-main">
+                    <Routes>
+                        {this.renderPages()}
+                    </Routes>
+                </section>
+                <Footer/>
+            </main>
+        </>
+    );
+
 }
 
 export default MainAdmin;

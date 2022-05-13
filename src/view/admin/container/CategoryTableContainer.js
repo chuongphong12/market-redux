@@ -1,40 +1,12 @@
-
-import {Component} from "react";
-import {bindActionCreators, compose} from "redux";
-import * as categoryAction from "../../../service/admin/action/categoryAction";
-import {connect} from "react-redux";
 import CategoryTable from "../page/category/CategoryTable";
+import {useSelector} from "react-redux";
+import {categorySelector} from "../../../core/admin/reducer/categorySlice";
 
-class CategoryTableContainer extends Component {
-
-    render() {
-
-
-        let {categories, categoryAction, match, history} = this.props;
-
-        return (
-            <CategoryTable match={match} history={history}
-                           categories={categories}
-                           categoryAction={categoryAction}/>
-        );
-    }
+const CategoryTableContainer = ({match, history}) => {
+    const categories = useSelector(categorySelector);
+    return (
+        <CategoryTable match={match} history={history} categories={categories}/>
+    );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        categories: state.categories
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        categoryAction: bindActionCreators(categoryAction, dispatch)
-    }
-}
-
-const store = connect(mapStateToProps, mapDispatchToProps);
-
-
-export default compose
-(store)
-(CategoryTableContainer);
+export default CategoryTableContainer;
