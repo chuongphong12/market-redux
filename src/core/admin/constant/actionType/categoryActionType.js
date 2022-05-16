@@ -1,9 +1,0 @@
-/**
- * actionType
- */
-
-export const SET_CATEGORIES = "SET_CATEGORIES";
-
-export const FETCH_FIND_ALL = "FETCH_FIND_ALL_CATEGORIES";
-
-export const FETCH_DELETE_BY_ID = "FETCH_DELETE_BY_ID_CATEGORY";

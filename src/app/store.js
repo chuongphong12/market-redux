@@ -1,17 +1,19 @@
-import {applyMiddleware, configureStore} from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import productReducer from "../core/admin/reducer/productSlice";
+import {applyMiddleware, combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga'
+import rootSaga from "./rootSaga";
+import categoryReducer from "../features/customer/page/home/HomeSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const combinedReducer = combineReducers({
+    category: categoryReducer
+});
+
 export const store = configureStore({
-    reducer: {
-        counter: counterReducer,
-        //admin
-        products: productReducer,
-    },
+    reducer: combinedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware),
     enhancers: [applyMiddleware(sagaMiddleware)],
     devTools: process.env.NODE_ENV !== 'production',
 });
+
+sagaMiddleware.run(rootSaga);

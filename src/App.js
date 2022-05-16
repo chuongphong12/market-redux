@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import MainAdmin from "./view/admin/page/MainAdmin";
-import MainCustomer from "./view/customer/page/MainCustomer";
+import {CustomerLayout} from "./components/layout";
+import {NotFound} from "./components/common";
 
 function App() {
-    return (
-        <Routes>
-            <Route path="/admin" component={MainAdmin}/>
-            <Route path="/" component={MainCustomer}/>
-        </Routes>
-    );
+	return (
+			<Routes>
+				<Route path="/" element={<CustomerLayout/>}/>
+				<Route element={<NotFound/>}/>
+			</Routes>
+	);
 }
 
 export default App;

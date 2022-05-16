@@ -1,5 +1,0 @@
-export const SET_BRANDS = "SET_BRANDS";
-
-export const FETCH_FIND_ALL = "FETCH_FIND_ALL_BRANDS";
-
-export const FETCH_DELETE_BY_ID = "FETCH_DELETE_BY_ID_BRAND";
