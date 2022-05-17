@@ -1,28 +1,28 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    loading: false,
-    category: [],
+	loading: false,
+	category: [],
 }
 
 export const categorySlice = createSlice({
-    name: 'category',
-    initialState,
-    reducers: {
-        getCategory: (state, action) => {
-            state.loading = true;
-        },
-        getCategorySuccess: (state, action) => {
-            state.loading = false;
-        },
-        getCategoryFailure: (state, action) => {
-            state.loading = false;
-        },
-
-        fetchCategory: (state, action) => {
-            state.category = action.payload;
-        },
-    },
+	name: 'category',
+	initialState,
+	reducers: {
+		getCategory: (state, action) => {
+			state.loading = true;
+		},
+		getCategorySuccess: (state, action) => {
+			state.loading = false;
+		},
+		getCategoryFailure: (state, action) => {
+			state.loading = false;
+		},
+		
+		fetchCategory: (state, action) => {
+			state.category = action.payload;
+		},
+	},
 });
 
 

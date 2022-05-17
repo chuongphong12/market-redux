@@ -1,6 +1,6 @@
 import HomeProduct from "./product/HomeProduct";
 
-function Home() {
+const Home = () => {
 	return (
 			<>
 				<HomeProduct/>

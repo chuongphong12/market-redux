@@ -1,16 +1,23 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import {Route, Routes} from "react-router-dom";
-import {CustomerLayout} from "./components/layout";
-import {NotFound} from "./components/common";
+import { AdminLayout } from "./components/layout";
+import CustomerLayout from './components/layout/customer/Customer';
 
 function App() {
-	return (
-			<Routes>
-				<Route path="/" element={<CustomerLayout/>}/>
-				<Route element={<NotFound/>}/>
-			</Routes>
-	);
+	/* const pathname = window.location.pathname
+        if (pathname.startsWith("/admin/")) {
+            return <AdminLayout/>;
+        } else {
+            return <CustomerLayout/>;
+        } */
+
+    return (
+        <Routes>
+            <Route path="/admin" element={<AdminLayout/>}/>
+            <Route path="/*" element={<CustomerLayout/>}/>
+        </Routes>
+    );
 }
 
 export default App;

@@ -1,19 +1,33 @@
-import {loadCss, loadScript} from "../../../index";
-import Header from "./layout/header/Header";
+import { Route,Routes } from "react-router-dom";
+import customerRoutes from '../../../features/customer/page/routes';
+import { loadCss,loadScript } from "../../../index";
 import Footer from "./layout/footer/Footer";
-import Home from "../../../features/customer/page/home/Home";
+import Header from "./layout/header/Header";
 
-export function CustomerLayout() {
+function CustomerLayout() {
+
+	const renderPages = () => {
+		return customerRoutes.map((route, index) => {
+				return (
+						<Route key={index} path={route.url} exact={route.isExact} element={route.element}/>
+				);
+		})
+}
+
 	loadCss(false);
 	loadScript(false);
 	return (
 			<>
 				<Header/>
 				<main className="main">
-					<Home/>
+					<Routes>
+						{renderPages()}
+					</Routes>
 				</main>
 				<Footer/>
 			</>
 	
 	);
 }
+
+export default CustomerLayout;

@@ -9,7 +9,7 @@ const combinedReducer = combineReducers({
     category: categoryReducer
 });
 
-export const store = configureStore({
+const store = configureStore({
     reducer: combinedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware),
     enhancers: [applyMiddleware(sagaMiddleware)],
@@ -17,3 +17,5 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
+
+export default store;

@@ -1,6 +1,6 @@
 import SingleMenuList from "../menu/SingleMenuList";
 
-function Header() {
+const Header = () => {
     return (
         <header className="header-area header-style-1 header-height-2">
             <div className="header-middle header-middle-ptb-1 d-none d-lg-block">

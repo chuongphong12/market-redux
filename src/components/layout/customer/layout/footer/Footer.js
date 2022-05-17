@@ -1,4 +1,4 @@
-function Footer() {
+const Footer = () => {
 	return (
 			<footer className="main">
 				<section className="newsletter mb-15 wow animate__animated animate__fadeIn">

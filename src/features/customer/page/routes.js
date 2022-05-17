@@ -1,11 +1,11 @@
 import Home from "./home/Home";
 
-const routes = [
+const customerRoutes = [
     {
         url: "/home",
         isExact: false,
-        component: ({match, history}) => <Home match={match} history={history}/>,
+        element: ({match, history}) => <Home match={match} history={history}/>,
     },
 ];
 
-export default routes;
+export default customerRoutes;

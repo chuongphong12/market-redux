@@ -1,4 +1,4 @@
-function Menu() {
+const Menu = () => {
     return (
         <>menu</>
     )

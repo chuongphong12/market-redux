@@ -4,17 +4,15 @@ import {categoryActions} from "./HomeSlice";
 import {notifyError} from "../../../../utils/notify";
 
 function* fetchAllCategory() {
-    let response = yield call(customerApi.categoryApi.findAll);
-
-    let {status, data} = response;
-
-    if (status === 200) {
-        yield put(categoryActions.fetchCategory(data));
-    } else {
-        notifyError("Có lỗi xảy ra");
-    }
+	try {
+		const response = yield call(customerApi.categoryApi.findAll);
+		yield put(categoryActions.fetchCategory(response.data));
+	} catch (e) {
+		notifyError(e.message);
+		yield put(categoryActions.getCategoryFailure(e.message));
+	}
 }
 
 export default function* HomeSaga() {
-    yield takeLatest(categoryActions.fetchCategory.type, fetchAllCategory);
+	yield takeLatest(categoryActions.fetchCategory.type, fetchAllCategory);
 }
