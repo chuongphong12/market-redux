@@ -7,16 +7,16 @@ const HomeProduct = () => {
 	const dispatch = useDispatch();
 	const categories = useSelector(categorySelector);
 	
-	
+	console.log('hello')
 	useEffect(() => {
-		dispatch(categoryActions.fetchCategory());
+		// dispatch(categoryActions.fetchCategory());
 	}, [dispatch]);
 	
 	
 	function renderCategories() {
 		const categoryList = categories.category?.slice(0, 5);
 		
-		return categoryList?.map((category, index) => {			
+		return categoryList?.map((category, index) => {
 		const products = category.productDtos?.slice(0, 5);
 			
 			return (

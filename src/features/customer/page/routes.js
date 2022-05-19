@@ -4,7 +4,7 @@ const customerRoutes = [
     {
         url: "/home",
         isExact: false,
-        element: ({match, history}) => <Home match={match} history={history}/>,
+        element:<Home />,
     },
 ];
 

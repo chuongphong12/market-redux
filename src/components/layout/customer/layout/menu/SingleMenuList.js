@@ -7,10 +7,10 @@ const SingleMenuList = () => {
 	const dispatch = useDispatch();
 	const categoriesSelector = useSelector(categorySelector);
 	const categories = categoriesSelector.category || [];
-	
+	console.log('categoriesSelector.category: ', categoriesSelector.category)
 	useEffect(() => {
-		dispatch(categoryActions.fetchCategory());
-	}, [categoriesSelector.category, dispatch]);
+		// dispatch(categoryActions.fetchCategory());
+	}, [dispatch]);
 	
 	return (
 			<div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
