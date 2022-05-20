@@ -1,6 +1,6 @@
-import apiService from "../services/ApiService";
-import productApi from "../constants/customerUrl/productApi";
 import categoryApi from "../constants/customerUrl/categoryApi";
+import productApi from "../constants/customerUrl/productApi";
+import apiService from "../services/ApiService";
 
 
 const customerApi = {

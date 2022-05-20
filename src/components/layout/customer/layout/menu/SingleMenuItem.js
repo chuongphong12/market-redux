@@ -1,13 +1,13 @@
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-const SingleMenuItem = (props) => {
-    let {singleMenuItem} = props;
+function SingleMenuItem(props) {
+	let { category } = props;
 
-    return (
-        <li>
-            <Link to="page-about.html">{singleMenuItem?.name}</Link>
-        </li>
-    )
+	return (
+		<li>
+			<Link to={'/product/' + category?.id}>{category?.name}</Link>
+		</li>
+	);
 }
 
 export default SingleMenuItem;

@@ -1,12 +1,17 @@
-import {takeLatest, call, put} from 'redux-saga/effects'
-import customerApi from "../../../../api/customerApi";
-import {categoryActions} from "./HomeSlice";
-import {notifyError} from "../../../../utils/notify";
+import { call, put, takeLatest } from 'redux-saga/effects';
+import customerApi from '../../../../api/customerApi';
+import { notifyError } from '../../../../utils/notify';
+import { categoryActions } from './HomeSlice';
 
 function* fetchAllCategory() {
 	try {
 		const response = yield call(customerApi.categoryApi.findAll);
-		yield put(categoryActions.fetchCategory(response.data));
+		if (response.status === 200) {
+			yield put(categoryActions.getCategorySuccess(response.data));
+		} else {
+			yield put(categoryActions.getCategoryFailure());
+			notifyError('Không thể lấy danh mục');
+		}
 	} catch (e) {
 		notifyError(e.message);
 		yield put(categoryActions.getCategoryFailure(e.message));
@@ -14,5 +19,5 @@ function* fetchAllCategory() {
 }
 
 export default function* HomeSaga() {
-	yield takeLatest(categoryActions.fetchCategory.type, fetchAllCategory);
+	yield takeLatest(categoryActions.getCategory.type, fetchAllCategory);
 }

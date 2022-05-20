@@ -1,11 +1,11 @@
-import Home from "./home/Home";
+import Home from './home/Home';
 
 const customerRoutes = [
-    {
-        url: "/home",
-        isExact: false,
-        element:<Home />,
-    },
+	{
+		url: '/',
+		isExact: false,
+		element: (match, history) => <Home match={match} history={history} />,
+	},
 ];
 
 export default customerRoutes;
